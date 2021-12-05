@@ -9,6 +9,6 @@
 
 # Usage
 ```shell
-$ gcc -std=c99 -Wall main.c bmp.c -o main
-$ ./main ../img/map.bmp
+$ gcc main.c bmp.c hist.c -o main
+$ ./main
 ```
