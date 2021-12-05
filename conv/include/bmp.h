@@ -1,5 +1,5 @@
-#ifndef BMP
-#define BMP
+#ifndef BMP_H_
+#define BMP_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,9 +44,9 @@ typedef struct RGBQUAD
 } RGBQUAD;
 
 /* bmp 파일 쓰는 함수 */
-void writeBmp(unsigned char* data, int width, int height);
+void WriteBmp(unsigned char* data, int width, int height);
 
 /* bmp 파일 읽는 함수 */
-BYTE* readBmp(char* filename);
+BYTE* ReadBmp(char* filename);
 
 #endif /* BMP_H_ */

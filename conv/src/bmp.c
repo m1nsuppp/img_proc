@@ -1,7 +1,7 @@
 #include "../include/bmp.h"
 
 /* bmp 파일 읽는 함수 */
-BYTE* readBmp(char* fileName){
+BYTE* ReadBmp(char* fileName){
 
     FILE* fpBmp = fopen(fileName, "rb");
 
@@ -25,7 +25,7 @@ BYTE* readBmp(char* fileName){
 }
 
 /* bmp 파일 쓰는 함수 */
-void writeBmp(unsigned char* data, int width, int height){
+void WriteBmp(unsigned char* data, int width, int height){
     BMFH fileHeader;
     BMIH infoHeader;    
 
