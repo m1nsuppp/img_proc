@@ -1,34 +1,44 @@
 #include "../include/bmp.h"
+#include "../include/hist.h"
 
-#define WIDTH 512
-#define HEIGHT 512
-#define SIZE 512 * 512
-#define CLR_DEPTH 255
-
-int main(int argc, char** argv) {
-    unsigned char* image = readBmp(argv[1]);
-    unsigned char* outHistogram = malloc(sizeof(BYTE) * SIZE);
-
-    // Step 1. image의 histogram 구하기
-    int* histogram = (int*)calloc(sizeof(int), CLR_DEPTH); 
-    for(int i = 0; i < SIZE; i++){
-        histogram[image[i]]++;
+int main() {
+    BMFH fileHeader;
+    BMIH infoHeader;
+    RGBQUAD hRGB[256];
+    FILE* fp = NULL;
+    int hist[256] = {0, };
+    int stackHist[256] = {0, };
+    
+    fp = fopen("../img/map.bmp", "rb");
+    if(fp == NULL) {
+        printf("FILE OPEN ERROR!\n");
+        return 0;
     }
 
-    // Step 2 & Step 3. 누적 빈도 구하고, 정규화합 histogram으로 변형.
-    float* normalizedSum = (float*)calloc(sizeof(float), CLR_DEPTH);
-    for(int i = 0; i < CLR_DEPTH; i++){
-        for(int j = 0; j < i + 1; j++){
-            normalizedSum[i] += CLR_DEPTH * ((float)histogram[j]) / (SIZE);
-        }
-    }
+    fread(&fileHeader, sizeof(fileHeader), 1, fp);
+    fread(&infoHeader, sizeof(infoHeader), 1, fp);
+    fread(hRGB, sizeof(RGBQUAD), 256, fp);
 
-    // Step 4. 원본 image에 다시 mapping.
-    for(int i = 0; i < SIZE; i++){
-        outHistogram[i] = normalizedSum[image[i]];
-    }
+    int imgSize = infoHeader.biWidth * infoHeader.biHeight;
+    BYTE* input = (BYTE*)calloc(sizeof(BYTE), imgSize);
+    BYTE* output = (BYTE*)calloc(sizeof(BYTE), imgSize);
+   
+    fread(input, sizeof(BYTE), imgSize, fp);
+    fclose(fp);
 
-    writeBmp(outHistogram, WIDTH, HEIGHT);
+    GetHist(input, hist, infoHeader.biWidth, infoHeader.biHeight);
+    CumulativeHist(stackHist, hist);
+    HistEqual(input, output, stackHist, infoHeader.biWidth, infoHeader.biHeight);
+
+    fp = fopen("../img/map_hist_equal.bmp", "wb");
+    fwrite(&fileHeader, sizeof(BYTE), sizeof(fileHeader), fp);
+    fwrite(&infoHeader, sizeof(BYTE), sizeof(infoHeader), fp);
+    fwrite(hRGB, sizeof(RGBQUAD), 256, fp);
+    fwrite(output, sizeof(BYTE), imgSize, fp);
+    fclose(fp);
+
+    free(input);
+    free(output);        
 
     return 0;
 }

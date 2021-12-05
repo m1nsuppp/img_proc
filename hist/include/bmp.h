@@ -1,41 +1,52 @@
-#ifndef BMP
-#define BMP
+#ifndef BMP_H_
+#define BMP_H_
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
-typedef uint16_t WORD;
-typedef uint32_t  DWORD;
-typedef int32_t  LONG;
-typedef uint8_t  BYTE;
 
-typedef struct BMFH {
-	WORD   bfType; // type         
-	DWORD  bfSize; // 전체 크기 
-	WORD   bfReserved1; 
-	WORD   bfReserved2;     
-	DWORD  bfOffBits; // bmp data 영역의 시작. (offset)    
+typedef unsigned char BYTE;
+typedef unsigned short WORD;
+typedef unsigned int DWORD;
+
+#pragma pack(1)
+
+typedef struct tagBITMAPFILEHEADER
+{
+    WORD bfType;
+    DWORD bfSize;
+    WORD bfReserved1;
+    WORD bfReserved2;
+    DWORD bfOffBits;
 } BMFH;
 
-typedef struct BMIH {
-	DWORD   biSize;           // 구조체 크기 
-	LONG    biWidth;          
-	LONG    biHeight;         
-	WORD    biPlanes;         
-	WORD    biBitCount;       // bit depth  
-	DWORD   biCompression;    // 압축률  
-	DWORD   biSizeImage;      // bitmap 이미지 크기
-	LONG    biXPelsPerMeter;   // x방향
-	LONG    biYPelsPerMeter;   // y방향
-	DWORD   biClrUsed;        
-	DWORD   biClrImportant;      
+
+typedef struct tagBITMAPINFOHEADER
+{
+    DWORD biSize;
+    int biWidth;
+    int biHeight;
+    WORD biPlanes;
+    WORD biBitCount;
+    DWORD biCompression;
+    DWORD biSizeImage;
+    int biXPixPerMeter;
+    int biYPixPerMeter;
+    DWORD biClrUsed;
+    DWORD biClrImporant;
 } BMIH;
+#pragma pack(pop)
 
-/* bmp 파일 쓰는 함수 */
-void writeBmp(unsigned char* data, int width, int height);
+typedef struct RGBQUAD
+{
+    BYTE rgbBlue;
+    BYTE rgbGreen;
+    BYTE rgbRed;
+    BYTE rgbReserved;
+} RGBQUAD;
 
-/* bmp 파일 읽는 함수 */
-BYTE* readBmp(char* filename);
+#pragma pack()
 
 #endif /* BMP_H_ */
