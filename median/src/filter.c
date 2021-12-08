@@ -1,7 +1,7 @@
 #include "../include/bmp.h"
 #include "../include/filter.h"
 
-void GaussSmoothFilter3x3(BYTE * input, BYTE * output, int width, int height){
+void GaussSmoothFilter3x3(BYTE* input, BYTE* output, int width, int height){
     const int size = 3;
     double mask[size][size] =
 //    {

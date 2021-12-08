@@ -6,7 +6,7 @@ int main() {
     BMIH infoHeader;
     RGBQUAD hRGB[256];
     FILE* fp = NULL;
-    char outputImg[40] = "..img/";
+    char outputImg[40];
     int selectNum = 0;
     
     fp = fopen("../img/akiyo_noise.bmp", "rb");
@@ -14,7 +14,6 @@ int main() {
         printf("FILE OPEN ERROR!\n");
         return 0;
     }
-
 
     fread(&fileHeader, sizeof(fileHeader), 1, fp);
     fread(&infoHeader, sizeof(infoHeader), 1, fp);
