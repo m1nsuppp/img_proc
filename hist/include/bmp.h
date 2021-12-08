@@ -11,7 +11,7 @@ typedef unsigned char BYTE;
 typedef unsigned short WORD;
 typedef unsigned int DWORD;
 
-#pragma pack(1)
+#pragma pack(2)
 
 typedef struct tagBITMAPFILEHEADER
 {
