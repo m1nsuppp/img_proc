@@ -51,6 +51,9 @@ int main() {
         SobelX(input, output, infoHeader.biWidth, infoHeader.biHeight);
         SobelY(input, output, infoHeader.biWidth, infoHeader.biHeight);
     }
+    else if(selectNum == 5) {
+        ClrToGrayscale(input, output, infoHeader.biWidth, infoHeader.biHeight);
+    }
     else
         printf("NO PROCESSING\n");
     
