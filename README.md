@@ -3,4 +3,5 @@
 - Histogram Equalzation
 - Convolution(Average filter, Gaussian smooth filter, Sharpening)
 - Median filter
-- Geometric Processing(interpolation)
+- Geometric Processing
+  - Interpolation
