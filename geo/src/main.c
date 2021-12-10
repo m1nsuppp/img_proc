@@ -9,7 +9,7 @@ int main() {
     BYTE* input = NULL;
     BYTE* output = NULL;
     int tmpHeight = 0, tmpWidth = 0, addrIndex = 0;
-    int alpha = 2;
+    double alpha = 4;
 
     fp = fopen("../img/baboon.bmp", "rb");
     if(fp == NULL) {
@@ -24,6 +24,7 @@ int main() {
     int width = infoHeader.biWidth;
     int height = infoHeader.biHeight;
     int imgSize = width * height;
+
     int newWidth = alpha * width;
     int newHeight = alpha * height;
     int newImgSize = newWidth * newHeight;
@@ -31,12 +32,12 @@ int main() {
     input = (BYTE*)calloc(sizeof(BYTE), imgSize);
     output = (BYTE*)calloc(sizeof(BYTE), newImgSize);
     
-    fread(input, sizeof(BYTE), newImgSize, fp);
+    fread(input, sizeof(BYTE), imgSize, fp);
     fclose(fp);
 
-    output = BilinearInterpolation(input, output, newWidth, newHeight, width, height);
+    ResizeNearest(input, output, alpha, width, height);
 
-    fp = fopen("../img/baboon_bilnear.bmp", "wb");
+    fp = fopen("../img/out3.bmp", "wb");
     fwrite(&fileHeader, sizeof(BYTE), sizeof(fileHeader), fp);
     fwrite(&infoHeader, sizeof(BYTE), sizeof(infoHeader), fp);
     fwrite(hRGB, sizeof(RGBQUAD), 256, fp);
