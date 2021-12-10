@@ -1,7 +1,18 @@
-# 기초적인 영상처리
-- *.raw to *.bmp
-- Histogram Equalzation
-- Convolution(Average filter, Gaussian smooth filter, Sharpening)
-- Median filter
-- Geometric Processing
-  - Interpolation
+# Geometric Processing
+- Nearest Neighbor Interpolation
+
+- Bi-linear Interpolation
+
+- Move
+
+- Mirror
+
+- Flip
+
+- Rotation
+---
+```C
+#include "geo.h"
+```
+---
+제작자: 강릉원주대학교 전자공학과 20171041 이민섭
