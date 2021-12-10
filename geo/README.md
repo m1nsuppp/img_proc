@@ -1,12 +1,15 @@
 # Geometric Processing
 - Nearest Neighbor Interpolation
-```C
-BYTE* NearestInterpolation(BYTE* input, BYTE* output, int newWidth, int newHeight, int width, int height);
-```
+
 - Bi-linear Interpolation
-```C
-BYTE* BilinearInterpolation(BYTE* input, BYTE* output, int newWidth, int newHeight, int width, int height);
-```
+
+- Move
+
+- Mirror
+
+- Flip
+
+- Rotation
 ---
 ```C
 #include "geo.h"
