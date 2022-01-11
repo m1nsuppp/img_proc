@@ -17,6 +17,23 @@ void Convolution(BYTE* input, BYTE* output, int width, int height, double** mask
     }
 }
 
+void SobelConv(BYTE* input, BYTE* output, int width, int height, double** mask) {
+    const int size = sqrt(mask);
+    int margin = size / 2;
+    double convValue = 0.0;
+    for(int i = margin; i < height - margin; i++){
+        for(int j = margin; j < width - margin; j++){
+            for(int m = -margin; m <= margin; m++){
+                for(int n = -margin; n <= margin; n++){
+                    convValue += input[(i + m) * width + (j + n)] * mask[m + margin][n + margin];
+                }
+            }
+            output[i * width + j] = (BYTE)labs((long)convValue / size);
+            convValue = 0.0;
+        }
+    }
+}
+
 void GetHist(BYTE* input, int* hist, int width, int height) {
     int imgSize = width * height;
     for(int i = 0; i < imgSize; i++) {
@@ -165,5 +182,13 @@ void RotationImg(BYTE* input, BYTE* output, int width, int height, double degree
 
             output[newY * width + newX] = input[i * width + j];
         }
+    }
+}
+
+void Binarization(BYTE* input, BYTE* output, int width, int height, BYTE threshold) {
+    int imgSize = width * height;
+    for(int i = 0; i < imgSize; i++){
+        if(input[i] < threshold) output[i] = 0;
+        else output[i] = 255;
     }
 }
