@@ -1,5 +1,5 @@
-#ifndef IMGPROC_H_
-#define IMGPROC_H_
+#ifndef IMG_PROC_H_
+#define IMG_PROC_H_
 
 #define MAX_INTENSITY 255
 #define PI 3.14
@@ -20,4 +20,4 @@ void RotationImg(BYTE* input, BYTE* output, int width, int height, double degree
 void Binarization(BYTE* input, BYTE* output, int width, int height, BYTE threshold);
 
 
-#endif /* IMGPROC_H_ */
+#endif /* IMG_PROC_H_ */
