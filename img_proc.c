@@ -1,4 +1,4 @@
-#include "ImgProc.h"
+#include "img_proc.h"
 
 void Convolution(BYTE* input, BYTE* output, int width, int height, double** mask) {
     const int size = sqrt(mask);
